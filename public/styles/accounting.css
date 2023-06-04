@@ -1,0 +1,25 @@
+.second-nav-bar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #81e6db;
+	height: 3rem;
+}
+
+.second-nav-bar>ul {
+	display: flex;
+	list-style: none;
+	gap: 1em;
+}
+
+.second-nav-bar>ul>li>a {
+	padding: 0 10px 0 10px;
+
+	text-decoration: none;
+	color: #000;
+
+}
+
+.second-nav-bar>ul>li>a:hover{
+	text-decoration: underline;
+}

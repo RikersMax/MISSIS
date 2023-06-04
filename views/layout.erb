@@ -1,0 +1,52 @@
+<!DOCHTYPE html>
+<html>
+<head>
+	<meta charset='UTF-8'>
+	
+	<link rel='stylesheet' href='/styles/main_style.css'>
+	<link rel='stylesheet' href='/styles/nav_bar_style.css'>
+
+</head>
+<body>
+
+<div class='main-grid'>	
+<div class='main'>
+	<header>
+	<div class='main-nav-bar'>
+
+		<div class='logo-link'>
+			<a href='/'><h3>Главная</h3></a>
+		</div>
+
+		<div class='nav-bar-links'>
+		<ul>
+		  	<li><a href='/accounting'>Учёт</a></li>
+		  	<li><a href='/plan'>План</a></li>
+			<li><a href='#'>Объявления</a></li>
+		</ul>
+		</div>
+
+		<div class='log-in'>
+			<span>log in</span>
+		<div>
+
+	</div>
+	</header>
+
+	<main>
+	<% if @error%>
+		<div class='alert-danger'><%= @error %></div>		
+	<%end%>	
+                
+	<%= yield%>		
+	</main>
+
+	<footer>
+		<p>end</p>
+
+	</footer>
+</div>
+</div>
+
+</body>
+</html>

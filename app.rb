@@ -1,0 +1,50 @@
+# encoding: UTF-8
+require 'sinatra'
+require 'sinatra/reloader'
+require 'sqlite3'
+
+def init_db
+	@db = SQLite3::Database.new ('database.db')
+	@db.results_as_hash = true
+end
+
+before do
+   	init_db
+end
+
+configure do
+	init_db
+	@db.execute('CREATE TABLE IF NOT EXISTS "Accounting" 
+		(
+		"id" INTEGER PRIMARY KEY AUTOINCREMENT,
+		"id_number" INTEGER,
+		"name_item" NVARCHAR(100),
+		"summa" INTEGER,
+		"datestemp" DATE
+		"link" VARCHAR(100)
+		)')
+end
+
+get '/' do
+	erb(:index)
+end
+
+get '/accounting' do 
+   	erb(:accounting)
+end
+
+get '/accounting/add' do
+   	erb(:arrival)
+end
+
+post '/accounting/add' do
+	erb('okk')
+
+end
+
+
+
+get '/plan' do
+   	erb(:plan)
+end
+
