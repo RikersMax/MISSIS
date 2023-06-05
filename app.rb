@@ -39,6 +39,7 @@ get '/' do
 end
 
 get '/create_items' do
+	@results = @db.execute('SELECT * FROM Items')
 	erb(:create_items)
 end
 

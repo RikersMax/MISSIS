@@ -30,3 +30,36 @@
 
 </form>
 </div>
+
+<div>
+<table>	
+	<thead>
+		<tr>
+		<th>id</th>
+		<th>Номер</th>
+		<th>Название</th>
+		<th>Описание</th>
+		</tr>
+	</thead>
+
+	<tbody>
+	
+	<%@results.each do |item|%>
+	        <tr>	
+		<td><%=item['id']%></td>
+		<td><%=item['id_number']%></td>
+		<td><%=item['name_item']%></td>
+		<td><%=item['summary']%></td>		
+		</tr>
+	<%end%>
+
+	</tbody>
+</table>
+</div>
+                                    
+
+
+
+
+
+
