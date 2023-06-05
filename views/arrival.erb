@@ -7,10 +7,10 @@
 	
 	<div>	
 	<label>Наименование изделия</label>
-	<select name='isdelie'>
-	<option value='isdelie_1' selected>изделие 1</option>
-	<option value='isdelie_2'>изделие 2</option>
-	<option value='isdelie_3'>изделие 3</option>
+	<select name='choice_item'>
+		<%@items.each do |item|%>
+			<option value ='<%=item%>'><%=item['name_item']%></option>
+		<%end%>
 	</select>
 	</div>
 	
@@ -21,12 +21,12 @@
 	
 	<div>
 	<label>Количество</label>
-	<input type='number' name='kolvo' value=''>
+	<input type='text' name='kolvo' value=''>
 	</div>
 	
 	<div>
 	<label>Смена</label>
-	<select name='isdelie'>
+	<select name='item'>
 	<option value='br_1' selected>Бригада 1</option>
 	<option value='br_2'>Бригада 2</option>
 	</select>

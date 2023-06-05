@@ -17,11 +17,11 @@ configure do
 	@db.execute('CREATE TABLE IF NOT EXISTS "Accounting" 
 		(
 		"id" INTEGER PRIMARY KEY AUTOINCREMENT,
-		"id_number" INTEGER,
+		"id_number" VARCHAR(50),
 		"name_item" NVARCHAR(100),
 		"summa" INTEGER,
-		"datestemp" DATE
-		"link" VARCHAR(100)
+		"datestemp" DATE,
+		FOREIGN KEY (id_number) REFERENCES Items(id_number)
 		)')
 
 	@db.execute('CREATE TABLE IF NOT EXISTS "Items"
@@ -34,6 +34,8 @@ configure do
 
 end
 
+enable :sessions
+
 get '/' do
 	erb(:index)
 end
@@ -45,9 +47,9 @@ end
 
 post '/create_items/add' do 
 
-	@id_number = params[:id_number]
-	@name_item = params[:name_item]
-	@summary_item = params[:summary_item] 
+	id_number = params[:id_number]
+	name_item = params[:name_item]
+	summary_item = params[:summary_item] 
 
 	
    	@db.execute('INSERT INTO "Items"
@@ -56,29 +58,51 @@ post '/create_items/add' do
 	name_item, 
 	summary
 	) 
-	VALUES (?,?,?)',[@id_number, @name_item, @summary_item])
+	VALUES (?,?,?)',[id_number, name_item, summary_item])
 	
 	@results = @db.execute('SELECT * FROM Items')
 	
-	erb("#{@results}")
+	erb(:create_items)
 
 end
 
 
 
 get '/accounting' do 
+        @results = @db.execute('SELECT * FROM Accounting')
+	
    	erb(:accounting)
 end
 
 get '/accounting/add' do
-	
+	@items = @db.execute('SELECT * FROM Items')	
 
    	erb(:arrival)
 end
 
-post '/accounting/add' do
-	erb('okk')
+get '/consumption' do
 
+end
+
+
+post '/accounting/add' do
+	item_hash = eval(params[:choice_item])
+	summa = params[:kolvo]
+	datestemp = params[:add_data]
+
+	@db.execute('INSERT INTO "Accounting" 
+	(
+	id_number, 
+	name_item, 
+	summa, 
+	datestemp
+	) 
+	VALUES (?, ?, ?, Datetime())', [item_hash['id_number'], item_hash['name_item'], summa])
+
+	@results = @db.execute('SELECT * FROM Accounting ')
+	#erb(eval(params[:choice_item]).inspect)
+
+	erb(:accounting)
 end
 
 
