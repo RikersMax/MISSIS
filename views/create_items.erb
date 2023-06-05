@@ -1,0 +1,32 @@
+<head>
+      	<title>Создать изделие</title>
+
+</head>
+<div class='main_headers'>
+<h3>Создать изделие<h3>
+</div>
+
+<div>
+<form action='/create_items/add' method='post'>
+
+	<div>
+	<label>Индификационный номер</label>
+	<input type='text' name='id_number' value='' placeholder='номер'>
+	</div>
+
+	<div>
+	<label>Название изделия</label>
+	<input type='text' name='name_item' value=''>
+	</div>
+
+	<div>
+	<label>Описание</label>
+	<textarea name='summary_item' placeholder='Описание'></textarea>
+	</div>
+	
+	<div>
+	<button type='submit'>Добавить</button>
+	</div>
+
+</form>
+</div>
