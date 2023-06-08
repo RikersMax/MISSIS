@@ -20,8 +20,8 @@ configure do
 		"id_number" VARCHAR(50),
 		"name_item" NVARCHAR(100),
 		"summa" INTEGER,
-		"datestemp" DATE,
-		FOREIGN KEY (id_number) REFERENCES Items(id_number)
+		"target" TEXT,
+		"datestemp" DATE
 		)')
 
 	@db.execute('CREATE TABLE IF NOT EXISTS "Items"
@@ -29,12 +29,13 @@ configure do
 		"id" INTEGER PRIMARY KEY AUTOINCREMENT,
 		"id_number" VARCHAR(50),
 		"name_item" NVARCHAR(100),
-		"summary" TEXT
+		"summary" TEXT,
+		"target_item" TEXT
 		)')
 
 end
 
-enable :sessions
+#enable :sessions
 
 get '/' do
 	erb(:index)
@@ -50,27 +51,38 @@ post '/create_items/add' do
 	id_number = params[:id_number]
 	name_item = params[:name_item]
 	summary_item = params[:summary_item] 
+	target = params[:target]
 
-	
    	@db.execute('INSERT INTO "Items"
 	(
 	id_number, 
-	name_item, 
+	name_item,
+	target_item,
 	summary
 	) 
-	VALUES (?,?,?)',[id_number, name_item, summary_item])
+	VALUES (?,?,?,?)',[id_number, name_item, target, summary_item])
 	
 	@results = @db.execute('SELECT * FROM Items')
-	
 	erb(:create_items)
-
+#	erb(params.inspect)	
 end
 
 
 
 get '/accounting' do 
-        @results = @db.execute('SELECT * FROM Accounting')
-	
+=begin
+	@results = @db.execute('SELECT Accounting.id, Accounting.id_number, Items.name_item, Accounting.summa, Accounting.datestemp, Items.target
+	FROM Accounting JOIN Items 
+	ON Accounting.name_item = Items.id_number	
+	')
+=end
+
+	@results = @db.execute('SELECT Accounting.id, Accounting.id_number, Items.name_item, Accounting.summa, Accounting.target, Accounting.datestemp
+	FROM Accounting JOIN Items 
+	ON Accounting.name_item = Items.id
+	')
+
+
    	erb(:accounting)
 end
 
@@ -89,18 +101,22 @@ post '/accounting/add' do
 	item_hash = eval(params[:choice_item])
 	summa = params[:kolvo]
 	datestemp = params[:add_data]
+	target = params[:target]
 
 	@db.execute('INSERT INTO "Accounting" 
 	(
 	id_number, 
 	name_item, 
-	summa, 
+	summa,
+	target, 
 	datestemp
 	) 
-	VALUES (?, ?, ?, Datetime())', [item_hash['id_number'], item_hash['name_item'], summa])
+	VALUES (?,?,?,?, Datetime())', [item_hash['id_number'], item_hash['id'], summa, target])
 
-	@results = @db.execute('SELECT * FROM Accounting ')
-	#erb(eval(params[:choice_item]).inspect)
+	@results = @db.execute('SELECT Accounting.id, Accounting.id_number, Items.name_item, Accounting.summa, Accounting.target, Accounting.datestemp
+	FROM Accounting JOIN Items 
+	ON Accounting.name_item = Items.id
+	')
 
 	erb(:accounting)
 end

@@ -23,6 +23,15 @@
 	<label>Количество</label>
 	<input type='text' name='kolvo' value=''>
 	</div>
+
+	<div>
+	<label>Назначение</label>
+	<select name='target'>
+		<%@items.each do |item|%>
+			<option value ='<%=item['target_item']%>'><%=item['target_item']%></option>
+		<%end%>
+	</select>
+	</div>	
 	
 	<div>
 	<label>Смена</label>
@@ -39,8 +48,5 @@
 	<div>
 	<button type='reset'>Отчистить</button>	
 	</div>
-
-
-
 
 </form>

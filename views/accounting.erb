@@ -9,6 +9,7 @@
 	<ul>
 	<li><a href='/accounting/add'>Приход</a></li>
 	<li><a href='#'>Расход</a></li>
+	<li><a href='#'>Остаток</a></li>
 	</ul>
 </div>
 
@@ -18,7 +19,6 @@
 </div>
 
 <div>
-
 <table>	
 	<thead>
 		<tr>
@@ -26,6 +26,7 @@
 		<th>Номер</th>
 		<th>Кол-во</th>
 		<th>Название</th>
+		<th>Назначение</th>
 		<th>Дата поступления</th>
 		</tr>
 	</thead>
@@ -38,7 +39,8 @@
 		<td><%=item['id_number']%></td>
 		<td><%=item['summa']%></td>
 		<td><%=item['name_item']%></td>
-		<td><%=item['datestemp']%></td>		
+		<td><%=item['target']%></td>				
+		<td><%=item['datestemp']%></td>
 		</tr>
 	<%end%>
 

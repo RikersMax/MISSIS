@@ -21,6 +21,11 @@
 	</div>
 
 	<div>
+	<label>Назначение</label>
+	<input type='test' name='target' value=''>
+	</div>
+	
+	<div>
 	<label>Описание</label>
 	<textarea name='summary_item' placeholder='Описание'></textarea>
 	</div>
@@ -39,6 +44,7 @@
 		<th>id</th>
 		<th>Номер</th>
 		<th>Название</th>
+		<th>Назначение</th>
 		<th>Описание</th>
 		</tr>
 	</thead>
@@ -50,6 +56,7 @@
 		<td><%=item['id']%></td>
 		<td><%=item['id_number']%></td>
 		<td><%=item['name_item']%></td>
+		<td><%=item['target_item']%></td>		
 		<td><%=item['summary']%></td>		
 		</tr>
 	<%end%>
