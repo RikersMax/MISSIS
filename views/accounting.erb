@@ -2,12 +2,78 @@
 <head>
 	<title>Учет</title>  
 	<link rel='stylesheet' href='/styles/accounting.css'>
+	<link rel='stylesheet' href='/styles/modal.css'>
 </head>
+<script defer src='/js/index.js'></script>
 
 
 <div class='second-nav-bar'>
 	<ul>
-	<li><a href='/accounting/add'>Приход</a></li>
+	<li><button class='open-modal-btn' id='open-modal-btn'>Приход</button>
+
+		<div class='modal' id='my-modal'>
+		<div class='modal-box'>
+		<button class='close-modal-btn' id='close-my-modal-btn'>X</button>
+		
+			<div class='main_headers'>
+			<h4>Добавить готовое извделие</h4>
+			</div>
+
+		<form action='/accounting/add' method='post'>
+	
+		<div>	
+		<label>Наименование изделия</label>
+		<select name='choice_item'>
+			<%@items.each do |item|%>
+				<option value ='<%=item%>'><%=item['name_item']%></option>
+			<%end%>
+		</select>
+		</div>
+	
+		<div>
+		<label>Дата</label>
+		<input type='date' name='add_data' value=''>
+		</div>
+	
+		<div>
+		<label>Количество</label>
+		<input type='text' name='kolvo' value=''>
+		</div>
+
+		<div>
+		<label>Назначение</label>
+		<select name='target'>
+			<%@items.each do |item|%>
+				<option value ='<%=item['target_item']%>'><%=item['target_item']%></option>
+			<%end%>
+		</select>
+		</div>	
+	
+		<div>
+		<label>Смена</label>
+		<select name='item'>
+		<option value='br_1' selected>Бригада 1</option>
+		<option value='br_2'>Бригада 2</option>
+		</select>
+		</div>	
+	
+		<div>
+		<button type='submit'>Добавить</button>
+		</div>
+
+		<div>
+		<button type='reset'>Отчистить</button>	
+		</div>
+
+		</form>		
+
+
+		</div>	
+		</div>	
+
+	
+	</li>
+	<!--<li><a href='/accounting/add'>Приход</a></li>-->
 	<li><a href='#'>Расход</a></li>
 	<li><a href='#'>Остаток</a></li>
 	</ul>

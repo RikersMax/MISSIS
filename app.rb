@@ -70,26 +70,17 @@ end
 
 
 get '/accounting' do 
-=begin
-	@results = @db.execute('SELECT Accounting.id, Accounting.id_number, Items.name_item, Accounting.summa, Accounting.datestemp, Items.target
-	FROM Accounting JOIN Items 
-	ON Accounting.name_item = Items.id_number	
-	')
-=end
 
 	@results = @db.execute('SELECT Accounting.id, Accounting.id_number, Items.name_item, Accounting.summa, Accounting.target, Accounting.datestemp
 	FROM Accounting JOIN Items 
 	ON Accounting.name_item = Items.id
+	ORDER BY datestemp DESC
 	')
+	
+	@items = @db.execute('SELECT * FROM Items')	
 
 
    	erb(:accounting)
-end
-
-get '/accounting/add' do
-	@items = @db.execute('SELECT * FROM Items')	
-
-   	erb(:arrival)
 end
 
 get '/consumption' do
@@ -113,12 +104,9 @@ post '/accounting/add' do
 	) 
 	VALUES (?,?,?,?, Datetime())', [item_hash['id_number'], item_hash['id'], summa, target])
 
-	@results = @db.execute('SELECT Accounting.id, Accounting.id_number, Items.name_item, Accounting.summa, Accounting.target, Accounting.datestemp
-	FROM Accounting JOIN Items 
-	ON Accounting.name_item = Items.id
-	')
+	@items = @db.execute('SELECT * FROM Items')		
 
-	erb(:accounting)
+	redirect to('/accounting')
 end
 
 
