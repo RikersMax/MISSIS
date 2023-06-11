@@ -1,7 +1,10 @@
 <head>
       	<title>Создать изделие</title>
+	<link rel='stylesheet' href='/styles/modal.css'>
 
 </head>
+
+<script defer src='/js/index.js'></script>
 
 <div class='main_headers'>
 <h3>Создать изделие<h3>
@@ -22,7 +25,11 @@
 
 	<div>
 	<label>Назначение</label>
-	<input type='test' name='target' value=''>
+	<select name='target'>
+	<%@results_category.each do |item|%>
+		<option value ='<%=item['name_category']%>'><%=item['name_category']%></option>
+	<%end%>
+	</select>
 	</div>
 	
 	<div>
@@ -36,6 +43,34 @@
 
 </form>
 </div>
+<div>
+	<button class='open-modal-btn' id='open-modal-btn'>+</button>
+
+	<div class='modal' id='my-modal'>
+	<div class='modal-box'>
+	<button class='close-modal-btn' id='close-my-modal-btn'>X</button>
+		
+		<div class='main_headers'>
+		<h4>Добавить категорию</h4>
+		</div>
+		
+		<form action='/create_items/create_category' method='post'>
+			<div>			
+			<input type='text' name='create_category' value=''>
+			</div>
+			
+			<button type='submit'>Добавить</button>	
+		</form>
+	</div>
+	</div>
+
+</div>
+
+
+
+
+
+
 
 <div>
 <table>	
@@ -51,7 +86,7 @@
 
 	<tbody>
 	
-	<%@results.each do |item|%>
+	<%@results_items.each do |item|%>
 	        <tr>	
 		<td><%=item['id']%></td>
 		<td><%=item['id_number']%></td>

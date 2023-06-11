@@ -21,7 +21,7 @@ configure do
 		"name_item" NVARCHAR(100),
 		"summa" INTEGER,
 		"target" TEXT,
-		"datestemp" DATE
+		"datestemp" VARCHAR(20)
 		)')
 
 	@db.execute('CREATE TABLE IF NOT EXISTS "Items"
@@ -32,7 +32,12 @@ configure do
 		"summary" TEXT,
 		"target_item" TEXT
 		)')
-
+	
+	@db.execute('CREATE TABLE IF NOT EXISTS "Categories"
+		(
+		"id" INTEGER PRIMARY KEY AUTOINCREMENT,
+		"name_category" NVARCHAR(100) 
+		)')	
 end
 
 #enable :sessions
@@ -42,9 +47,23 @@ get '/' do
 end
 
 get '/create_items' do
-	@results = @db.execute('SELECT * FROM Items')
+	@results_items = @db.execute('SELECT * FROM Items')
+	@results_category = @db.execute('SELECT * FROM Categories')
+
 	erb(:create_items)
 end
+
+post '/create_items/create_category' do
+	category = params[:create_category]
+	
+	@db.execute('INSERT INTO "Categories"(
+	name_category
+	) 
+	VALUES (?)', [category])	   	
+
+	redirect to('/create_items')
+end     
+
 
 post '/create_items/add' do 
 
@@ -52,7 +71,7 @@ post '/create_items/add' do
 	name_item = params[:name_item]
 	summary_item = params[:summary_item] 
 	target = params[:target]
-
+        
    	@db.execute('INSERT INTO "Items"
 	(
 	id_number, 
@@ -62,12 +81,8 @@ post '/create_items/add' do
 	) 
 	VALUES (?,?,?,?)',[id_number, name_item, target, summary_item])
 	
-	@results = @db.execute('SELECT * FROM Items')
-	erb(:create_items)
-#	erb(params.inspect)	
+	redirect to('/create_items')
 end
-
-
 
 get '/accounting' do 
 
@@ -79,14 +94,12 @@ get '/accounting' do
 	
 	@items = @db.execute('SELECT * FROM Items')	
 
-
    	erb(:accounting)
 end
 
 get '/consumption' do
 
 end
-
 
 post '/accounting/add' do
 	item_hash = eval(params[:choice_item])
@@ -102,13 +115,12 @@ post '/accounting/add' do
 	target, 
 	datestemp
 	) 
-	VALUES (?,?,?,?, Datetime())', [item_hash['id_number'], item_hash['id'], summa, target])
+	VALUES (?,?,?,?,?)', [item_hash['id_number'], item_hash['id'], summa, target, datestemp])
 
 	@items = @db.execute('SELECT * FROM Items')		
 
 	redirect to('/accounting')
 end
-
 
 get '/plan' do
    	erb(:plan)
