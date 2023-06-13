@@ -17,11 +17,6 @@
 </div>
 
 
-<div class='main_headers'>
-	<p><h3>Приход</h3></p>
-</div>
-
-
 <div>
 <button class='open-modal-btn' id='open-modal-btn'>Добавить</button>
 
@@ -87,8 +82,9 @@
 
 
 
-<div>
-<table>	
+<div class='table-grid'>
+<table class='table-show'>
+	<caption>История прихода</caption>	
 	<thead>
 		<tr>
 		<th>id</th>
@@ -100,8 +96,7 @@
 		</tr>
 	</thead>
 
-	<tbody>
-	
+	<tbody>	
 	<%@results.each do |item|%>
 	        <tr>	
 		<td><%=item['id']%></td>
@@ -112,9 +107,6 @@
 		<td><%=item['datestemp']%></td>
 		</tr>
 	<%end%>
-
 	</tbody>
 </table>
 </div>
-
-<%=@start_summ%>

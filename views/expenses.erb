@@ -17,7 +17,68 @@
 </div>
 
 
-<div class='main_headers'>
-	<p><h3>Расход</h3></p>
+<form action='/expenses/remove' method='post'>
+
+	<div>
+	<label>Наименование</label>
+	<select name='name_item'>
+	<%@items.each do |item|%>
+		<option value='<%=item%>'><%=item['name_item']%></option>
+	<%end%>
+	</select>
+	</div>
+	
+	<div>
+	<label>Количество</label>
+	<input type='text' name='kolvo' value=''>
+	</div>
+
+	<div>
+	<label>Отправка</label>
+	<select name='target_item'>
+	<%@arr.each do |x|%>
+	     	<option value='<%=x%>'><%=x%></option>	
+	<%end%>
+	<select>
+	</div>
+	
+	<div>
+	<button type='submit'>Отправить</button>	
+
+	</div>
+</form>
+
+<div class='table-grid'>
+<table class='table-show'>	
+	<caption>История расхода</caption>
+	<thead>
+		<tr>
+		<th>id</th>
+		<th>Номер</th>
+		<th>Название</th>
+		<th>Назначение</th>
+		<th>Количество</th>
+		<th>Дата отправки</th>
+		</tr>
+	</thead>
+
+	<tbody>	
+	<%@reove_log.each do |item|%>
+	        <tr>	
+		<td><%=item['id']%></td>
+		<td><%=item['id_number']%></td>
+		<td><%=item['name_item']%></td>
+		<td><%=item['target_item']%></td>		
+		<td><%=item['summa_expen']%></td>	
+		<td><%=item['datestemp']%></td>			
+		</tr>
+	<%end%>
+	</tbody>
+</table>
 </div>
+
+
+
+
+
 

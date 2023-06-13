@@ -43,6 +43,16 @@ configure do
 		"id" INTEGER PRIMARY KEY AUTOINCREMENT,
 		"name_category" NVARCHAR(100) 
 		)')	
+
+	@db.execute('CREATE TABLE IF NOT EXISTS "Expenses"
+		(
+		"id" INTEGER PRIMARY KEY AUTOINCREMENT,
+		"id_number" VARCHAR(50),
+		"name_item" NVARCHAR(100),
+		"target_item" TEXT,
+		"summa_expen" INTEGER,
+		"datestemp" VARCHAR(20)
+		)')
 end
 
 #enable :sessions
@@ -147,16 +157,43 @@ end
 
 get '/expenses' do
 
+	@reove_log = @db.execute('SELECT * FROM Expenses')
+                                	
+	@items = @db.execute('SELECT * FROM Items')
+
+	@arr = ['цех №1', 'цех №9', 'Другое']
+
    	erb(:expenses)
+end
+
+post '/expenses/remove' do 
+	item_hash = eval(params[:name_item])
+	summa = params[:kolvo]	
+	target_item = params[:target_item]
+
+	start_summa = @db.execute('SELECT summa FROM Items WHERE id_number = ?', [item_hash['id_number']])	
+	new_summa = (start_summa[0]['summa']) - summa.to_i	
+	@db.execute('UPDATE Items SET summa = ? WHERE id_number = ?', [new_summa, item_hash['id_number']])
+
+
+
+	@db.execute('INSERT INTO Expenses
+		(
+		id_number,
+		name_item,		
+		target_item,
+		summa_expen,
+		datestemp
+		) VALUES(?,?,?,?, Date())',[item_hash['id_number'], item_hash['name_item'], target_item, summa])	
+
+	redirect to('/expenses')
 end
 
 get '/remainder' do
 
-	rel = @db.execute('SELECT * FROM Items')
-	erb(rel.inspect)
+	@items = @db.execute('SELECT * FROM Items')
 
-
-#   	erb(:remainder)
+   	erb(:remainder)
 end
 
 

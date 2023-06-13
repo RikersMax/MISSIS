@@ -16,7 +16,35 @@
 	</ul>
 </div>
 
-<div class='main_headers'>
-	<p><h3>Остаток</h3></p>
+<div class='table-grid'>
+<table class='table-show'>
+	<caption>Остаток</caption>
+	<thead>
+		<tr>
+		<th>id</th>
+		<th>Номер</th>
+		<th>Название</th>
+		<th>Назначение</th>
+		<th>Описание</th>
+		<th>Количество</th>
+		</tr>
+	</thead>
+
+	<tbody>
+	
+	<%@items.each do |item|%>
+	        <tr>	
+		<td><%=item['id']%></td>
+		<td><%=item['id_number']%></td>
+		<td><%=item['name_item']%></td>
+		<td><%=item['target_item']%></td>		
+		<td><%=item['summary']%></td>	
+		<td><%=item['summa']%></td>			
+		</tr>
+	<%end%>
+
+	</tbody>
+</table>
 </div>
+
 

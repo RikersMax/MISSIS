@@ -23,3 +23,66 @@
 .second-nav-bar>ul>li>a:hover{
 	text-decoration: underline;
 }
+
+
+
+.table-grid {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);	
+}
+
+.table-show>caption {
+	font-size: 2rem;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.table-show {
+	grid-column: 2/12;
+}
+
+.table-show>tbody td {
+	border-style: solid;
+	border-width: 1px;	
+	padding: 5px;
+}
+
+.table-show>thead tr,th{
+	border-style: solid;
+	border-width: 1px;	
+}
+
+.table-show>tbody tr:nth-child(odd) {
+	background-color: #C9E4F6;
+}
+
+.table-show>tbody tr:nth-child(even) {
+	background-color: #B4DAF2;
+}
+
+.table-show>tbody tr:hover {
+	background: #edfcfc;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
