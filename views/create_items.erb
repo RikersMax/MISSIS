@@ -1,7 +1,7 @@
 <head>
       	<title>Создать изделие</title>
 	<link rel='stylesheet' href='/styles/modal.css'>
-
+	<link rel='stylesheet' href='/styles/accounting.css'>
 </head>
 
 <script defer src='/js/index.js'></script>
@@ -14,7 +14,7 @@
 <form action='/create_items/add' method='post'>
 
 	<div>
-	<label>Индификационный номер</label>
+	<label>Идентификационный номер</label>
 	<input type='text' name='id_number' value='' placeholder='номер'>
 	</div>
 
@@ -29,7 +29,7 @@
 	<%@results_category.each do |item|%>
 		<option value ='<%=item['name_category']%>'><%=item['name_category']%></option>
 	<%end%>
-	</select>
+	</select>      	
 	</div>
 	
 	<div>
@@ -43,7 +43,10 @@
 
 </form>
 </div>
-<div>
+
+
+
+	<div>
 	<button class='open-modal-btn' id='open-modal-btn'>+</button>
 
 	<div class='modal' id='my-modal'>
@@ -64,16 +67,11 @@
 	</div>
 	</div>
 
-</div>
+	</div>
 
 
-
-
-
-
-
-<div>
-<table>	
+<div class='table-grid'>
+<table class='table-show'>	
 	<thead>
 		<tr>
 		<th>id</th>

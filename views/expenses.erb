@@ -15,9 +15,19 @@
 	<li><a href='/remainder'>Остаток</a></li>
 	</ul>
 </div>
+<div>
+<button class='open-modal-btn' id='open-modal-btn'>Отправить изделие</button>
+
+	<div class='modal' id='my-modal'>
+	<div class='modal-box'>
+		<button class='close-modal-btn' id='close-my-modal-btn'>X</button>
+		
+			<div class='main_headers'>
+			<h4>Изеделие</h4>
+			</div>
 
 
-<form action='/expenses/remove' method='post'>
+	<form action='/expenses/remove' method='post'>
 
 	<div>
 	<label>Наименование</label>
@@ -34,7 +44,7 @@
 	</div>
 
 	<div>
-	<label>Отправка</label>
+	<label>Место отправки</label>
 	<select name='target_item'>
 	<%@arr.each do |x|%>
 	     	<option value='<%=x%>'><%=x%></option>	
@@ -46,8 +56,11 @@
 	<button type='submit'>Отправить</button>	
 
 	</div>
-</form>
+	</form>
 
+	</div>
+	</div>
+</div>
 <div class='table-grid'>
 <table class='table-show'>	
 	<caption>История расхода</caption>

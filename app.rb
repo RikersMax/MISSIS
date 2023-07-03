@@ -58,7 +58,7 @@ end
 #enable :sessions
 
 get '/' do
-
+=begin
 stream do |out|
     out << "It's gonna be legen -\n"
     sleep 1.5
@@ -69,8 +69,8 @@ stream do |out|
     out << erb(:index)
 
 end
-
-	#erb(:index)
+=end
+	erb(:index)
 end
 
 get '/create_items' do
